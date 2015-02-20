@@ -1,0 +1,26 @@
+body { padding-top:30px; }
+
+.hamburger {
+  overflow-y: hidden;
+  height: 100px;
+  width: 200px;
+  z-index: -1;
+}
+
+.square {
+  height: 20px;
+  width: 200px;
+  z-index: 99999;
+}
+
+.red {
+  background-color: red;
+}
+
+.green {
+  background-color: green;
+}
+
+input {
+  display: block;
+}

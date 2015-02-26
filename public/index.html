@@ -25,28 +25,22 @@
   <script src="js/appDirectives.js"></script>
 </head>
 <body ng-app="lunchDate" ng-controller="MainController">
-<div class="container">
-
-  <!-- HEADER -->
-  <nav class="navbar navbar-inverse">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="/">LunchDate</a>
+<div class="table-container trigrid">
+  <div class="wrapper">
+  <div class="centered">
+    <div class="logo">
+    asdlsjdalskdjaskldjslk
     </div>
-    <ul class="nav navbar-nav">
-      <li><a href="/nerds">Nerds</a></li>
-    </ul>
-  </nav>
-
-  <div class="red square"></div>
-  <div class="hamburger">
-    <input type="text" class="animate-repeat" ng-repeat="person in people track by $index" ng-blur="addPerson(this)" setfocus="{{$last}}">
+    <div class="center-hamburger">
+      <div class="red square"></div>
+      <div class="text-container">
+        <input type="text" class="email-input" ng-repeat="person in people track by $index" ng-model='people[$index]' ng-blur="addPerson(this)" setfocus="{{$last}}">
+      </div>
+      <input type="button" class="ui button" value="CLICK ME"ng-click="removePerson()">
+      <div class="green square"></div>
+    </div>
   </div>
-  <div class="green square"></div>
-  <input type="button" ng-click="removePerson()">
-
-  <!-- ANGULAR DYNAMIC CONTENT -->
-  <div ng-view></div>
-
+  </div>
 </div>
 </body>
 </html>

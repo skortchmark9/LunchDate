@@ -2,16 +2,15 @@ angular.module('MainCtrl', []).controller('MainController', function($scope) {
 
 	$scope.tagline = 'To the moon and back!';
 
-  $scope.people = [1];
+  $scope.people = [''];
 
   $scope.addPerson = function(caller) {
-    $('.animate-repeat').animate({marginTop: '-=15px'});
-    $scope.people.push(1);
+    $('.email-input').last().animate({
+      marginTop: '-22px'
+    });
+    $scope.people.push('');
   }
   $scope.removePerson = function() {
-    $('.animate-repeat').animate({marginTop: '+=15px'});
-    $scope.people.pop();
+    console.log($scope.people);
   }
-
 });
-

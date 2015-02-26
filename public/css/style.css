@@ -1,10 +1,62 @@
-body { padding-top:30px; }
+html, body {
+  margin: 0px;
+  padding: 0px;
+  height: 100%;
+  background-color: rgb(166, 232, 254);
+}
 
-.hamburger {
+.table-container {
+  height: 100%;
+  width: 100%;
+  display: table;
+}
+
+.wrapper {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.centered {
+  padding: 1em;
+  max-width: 700px;
+  display: inline-block;
+  text-align: center;
+}
+
+
+.container {
+  height: 100%;
+  display: table;
+}
+.trigrid {
+  background-image: url(../img/trigrid-tile-5pct.svg);
+  background-size: 20px 35px;
+  background-position: center top;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  overflow: hidden;
+}
+
+
+.text-container input {
+  outline: none;
+  margin: 0px;
+  border: none;
+  color: white;
+  background-color: black;
+  -webkit-appearance: none;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  border-radius: 0em;
+  box-shadow: none;
+  width: 100%
+}
+
+.text-container {
   overflow-y: hidden;
-  height: 100px;
-  width: 200px;
   z-index: -1;
+  height: 20px;
 }
 
 .square {
@@ -14,6 +66,7 @@ body { padding-top:30px; }
 }
 
 .red {
+  opacity: 0%;
   background-color: red;
 }
 
@@ -23,4 +76,112 @@ body { padding-top:30px; }
 
 input {
   display: block;
+}
+
+/*
+ * # Semantic UI
+ * https://github.com/Semantic-Org/Semantic-UI
+ * http://www.semantic-ui.com/
+ *
+ * Copyright 2014 Contributors
+ * Released under the MIT license
+ * http://opensource.org/licenses/MIT
+ *
+ */
+
+/*******************************
+            Button
+*******************************/
+
+.ui.button {
+  cursor: pointer;
+  display: inline-block;
+  min-height: 1em;
+  outline: none;
+  border: none;
+  vertical-align: baseline;
+  background-color: #f0f0f0;
+  color: #404040;
+  font-family: 'Brown', Arial, Helvetica, sans-serif;
+  margin: 0em 0.25em 0em 0em;
+  padding: 0.78571em 1.5em 0.78571em;
+  text-transform: none;
+  text-shadow: none;
+  font-weight: 300;
+  line-height: 1;
+  font-style: normal;
+  text-align: center;
+  text-decoration: none;
+  background-image: none;
+  border-radius: 0;
+  box-shadow: inset 1px 0 0 -1px #1b8eb9;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: opacity 0.1s cubic-bezier(0.55, 0, 0.1, 1), background-color 0.1s cubic-bezier(0.55, 0, 0.1, 1), color 0.1s cubic-bezier(0.55, 0, 0.1, 1), box-shadow 0.1s cubic-bezier(0.55, 0, 0.1, 1), background 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+  transition: opacity 0.1s cubic-bezier(0.55, 0, 0.1, 1), background-color 0.1s cubic-bezier(0.55, 0, 0.1, 1), color 0.1s cubic-bezier(0.55, 0, 0.1, 1), box-shadow 0.1s cubic-bezier(0.55, 0, 0.1, 1), background 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+  will-change: '';
+  -webkit-tap-highlight-color: transparent;
+}
+
+/*******************************
+            States
+*******************************/
+
+/*--------------
+      Hover
+---------------*/
+
+.ui.button:hover {
+  background-color: #e2e1df;
+  background-image: none;
+  box-shadow: inset 1px 0 0 -1px #1b8eb9;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.ui.button:hover .icon {
+  opacity: 0.85;
+}
+
+/*--------------
+      Focus
+---------------*/
+
+.ui.button:focus .icon {
+  opacity: 0.85;
+}
+
+/*--------------
+      Down
+---------------*/
+
+.ui.button:active,
+.ui.active.button:active {
+  background-color: #918f8c;
+  background-image: none;
+  color: rgba(0, 0, 0, 0.8);
+  box-shadow: inset 1px 0 0 -1px #1b8eb9;
+}
+
+/*--------------
+     Active
+---------------*/
+
+.ui.active.button {
+  background-color: #918f8c;
+  background-image: none;
+  box-shadow: inset 1px -50px 0 -1px #1b8eb9;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.ui.button.active:hover {
+  background-color: #918f8c;
+  background-image: none;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.ui.button.active:active {
+  background-color: #918f8c;
+  background-image: none;
 }

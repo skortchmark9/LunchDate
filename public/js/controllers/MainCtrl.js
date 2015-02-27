@@ -1,6 +1,4 @@
-angular.module('MainCtrl', []).controller('MainController', function($scope) {
-
-	$scope.tagline = 'To the moon and back!';
+angular.module('MainCtrl', []).controller('MainController', function($scope, $http) {
 
   $scope.people = [''];
 
@@ -10,7 +8,14 @@ angular.module('MainCtrl', []).controller('MainController', function($scope) {
     });
     $scope.people.push('');
   }
-  $scope.removePerson = function() {
-    console.log($scope.people);
+
+  $scope.submitPeople = function() {
+    $http.post('/api/submitPeople', $scope.people).
+      success(function(response) {
+        console.log(response);
+      }).
+      error(function(error) {
+        console.log(error);
+      });
   }
 });

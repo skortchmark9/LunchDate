@@ -3,7 +3,6 @@ module.exports = function(app, Todo) {
 	// server routes ===========================================================
 	// handle things like api calls
 	// authentication routes
-
 	app.get('/api/todos', function(req, res) {
 		Todo.find(function(err, todos) {
 			if (err) {
@@ -11,6 +10,11 @@ module.exports = function(app, Todo) {
 			}
 			res.json(todos);
 		});
+	});
+
+	app.post('/api/submitPeople', function(req, res) {
+		console.log(req.body);
+		res.send("YOU DID IT!");
 	});
 
 	app.post('/api/todos', function(req, res) {

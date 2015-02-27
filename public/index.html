@@ -36,7 +36,7 @@
       <div class="text-container">
         <input type="text" class="email-input" ng-repeat="person in people track by $index" ng-model='people[$index]' ng-blur="addPerson(this)" setfocus="{{$last}}">
       </div>
-      <input type="button" class="ui button" value="CLICK ME"ng-click="removePerson()">
+      <input type="button" class="ui button" value="CLICK ME" ng-click="submitPeople()">
       <div class="green square"></div>
     </div>
   </div>

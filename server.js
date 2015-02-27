@@ -31,7 +31,6 @@ app.get('/', function(req, res) {
 	res.sendfile('./public/index.html');
 });
 
-
 // catch-all
 app.get('*', function (req, res) {
 	res.status(404).json({

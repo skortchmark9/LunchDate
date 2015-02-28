@@ -1,20 +1,22 @@
-.email-input.ng-move,
-.email-input.ng-enter,
-.email-input.ng-leave {
+.input-container.ng-move,
+.input-container.ng-enter,
+.input-container.ng-leave {
   -webkit-transition:all linear .5s;
   transition:all linear .5s;
 }
 
-.email-input.ng-leave.ng-leave-active,
-.email-input.ng-move,
-.email-input.ng-enter {
+.input-container.ng-leave.ng-leave-active,
+.input-container.ng-move,
+.input-container.ng-enter {
   opacity:0;
   max-height:0;
 }
 
-.email-input.ng-leave,
-.email-input.ng-move.ng-move-active,
-.email-input.ng-enter.ng-enter-active {
+.input-container.ng-leave,
+.input-container.ng-move.ng-move-active,
+.input-container.ng-enter.ng-enter-active {
   opacity:1;
   max-height:40px;
 }
+
+

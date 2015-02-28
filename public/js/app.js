@@ -1,1 +1,1 @@
-var lunchDate = angular.module('lunchDate', ['ngRoute', 'appRoutes', 'ngAnimate', 'MainCtrl', 'NerdCtrl', 'NerdService']);
+var lunchDate = angular.module('lunchDate', ['ngRoute', 'appRoutes', 'ngAnimate', 'ngTagsInput', 'MainCtrl', 'NerdCtrl', 'PreviewCtrl', 'PairsService', 'PeopleService']);

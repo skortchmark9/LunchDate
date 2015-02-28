@@ -39,8 +39,7 @@ html, body {
   overflow: hidden;
 }
 
-
-.text-container input {
+.input-container input {
   outline: none;
   margin: 0px;
   border: none;
@@ -53,10 +52,14 @@ html, body {
   width: 100%
 }
 
-.text-container {
+.input-container {
   overflow-y: hidden;
   z-index: -1;
-  height: 20px;
+  height: 100px;
+}
+
+.team-input .host {
+  width: 200px;
 }
 
 .square {

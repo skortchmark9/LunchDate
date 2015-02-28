@@ -8,6 +8,7 @@
 
   <!-- CSS -->
   <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/ng-tags-input/2.0.1/ng-tags-input.min.css" />
 <!-- custom styles -->
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/animations.css">
@@ -17,9 +18,13 @@
   <script src="libs/angular-route/angular-route.min.js"></script>
   <script src="libs/angular-animate/angular-animate.min.js"></script>
   <!-- ANGULAR CUSTOM -->
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/ng-tags-input/2.0.1/ng-tags-input.min.js"></script>
   <script src="js/controllers/MainCtrl.js"></script>
+  <script src="js/controllers/PreviewCtrl.js"></script>
   <script src="js/controllers/NerdCtrl.js"></script>
   <script src="js/services/NerdService.js"></script>
+  <script src="js/services/PeopleService.js"></script>
+  <script src="js/services/PairsService.js"></script>
   <script src="js/appRoutes.js"></script>
   <script src="js/app.js"></script>
   <script src="js/appDirectives.js"></script>
@@ -27,19 +32,10 @@
 <body ng-app="lunchDate" ng-controller="MainController">
 <div class="table-container trigrid">
   <div class="wrapper">
-  <div class="centered">
     <div class="logo">
     asdlsjdalskdjaskldjslk
     </div>
-    <div class="center-hamburger">
-      <div class="red square"></div>
-      <div class="text-container">
-        <input type="text" class="email-input" ng-repeat="person in people track by $index" ng-model='people[$index]' ng-blur="addPerson(this)" setfocus="{{$last}}">
-      </div>
-      <input type="button" class="ui button" value="CLICK ME" ng-click="submitPeople()">
-      <div class="green square"></div>
-    </div>
-  </div>
+    <div class="centered view-animate" ng-view></div>
   </div>
 </div>
 </body>

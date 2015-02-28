@@ -1,18 +1,18 @@
-module.exports = function(app, Todo) {
+module.exports = function(app, Organization, Person) {
 
 	// server routes ===========================================================
 	// handle things like api calls
 	// authentication routes
-	app.get('/api/todos', function(req, res) {
-		Todo.find(function(err, todos) {
+	app.get('/api/people', function(req, res) {
+		Person.find(function(err, people) {
 			if (err) {
 				res.send(err);
 			}
-			res.json(todos);
+			res.json(people);
 		});
 	});
 
-	app.post('/api/submitPeople', function(req, res) {
+	app.post('/api/people', function(req, res) {
 		console.log(req.body);
 		res.send("YOU DID IT!");
 	});

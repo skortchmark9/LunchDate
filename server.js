@@ -13,7 +13,8 @@ var port = process.env.PORT || 8080; // set our port
 //DB
 var db = require('./config/db');
 mongoose.connect(db.url);
-var Todo = require('./app/models/Todo');
+var Organization = require('./app/models/Organization');
+var Person = require('./app/models/Person');
 
 
 // get all data/stuff of the body (POST) parameters
@@ -25,7 +26,7 @@ app.use(express.static(__dirname + '/public')); // set the static files location
 
 // routes ==================================================
 // route to handle all angular requests
-var api = require('./app/routes/api')(app, Todo);
+var api = require('./app/routes/api')(app, Organization, Person);
 
 app.get('/', function(req, res) {
 	res.sendfile('./public/index.html');
@@ -53,6 +54,7 @@ app.delete('*', function (req, res) {
 
 // start app ===============================================
 app.listen(port);
-console.log('Magic happens on port ' + port); 			// shoutout to the user
+// shoutout to the user
+console.log('Magic happens on port ' + port);
 exports = module.exports = app;
- 						// expose app
+// expose app

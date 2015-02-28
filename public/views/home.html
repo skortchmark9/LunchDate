@@ -1,5 +1,11 @@
-<div class="jumbotron text-center">
-	<h1>Home Page 4 Life</h1>
-
-	<p>{{ tagline }}</p>
+<div class="center-hamburger">
+  <div class="red square"></div>
+  <tags-input ng-model='teams' class="team-input" placeholder="team"></tags-input>
+  <div class="input-container">
+      <div class="person-input" ng-repeat="person in people track by $index">
+          <input type="text" class="email-input" ng-model='people[$index].email' ng-keypress="keyPressed($event, $index)" placeholder="email" setfocus="{{$last}}"/>
+    </div>
+  </div>
+  <input type="button" class="ui button" value="CLICK ME" ng-click="submitPeople()">
+  <div class="green square"></div>
 </div>

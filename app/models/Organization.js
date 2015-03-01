@@ -2,8 +2,8 @@
 var mongoose = require('mongoose');
 
 // module.exports allows us to pass this to other files when it is called
-module.organization = mongoose.model('Organization', {
+module.exports = mongoose.model('Organization', {
   name : String,
-  week : Number,
+  weeks : Number,
   people : [mongoose.Schema.Types.ObjectId]
 });

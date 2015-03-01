@@ -12,9 +12,9 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 			controller: 'PreviewController',
 		})
 
-		.when('/nerds', {
-			templateUrl: 'views/nerd.html',
-			controller: 'NerdController'
+		.when('/pairs', {
+			templateUrl: 'views/pairs.html',
+			controller: 'PairsController',
 		})
 
 	$locationProvider.html5Mode(true);

@@ -1,4 +1,4 @@
-angular.module('MainCtrl', []).controller('MainController', function($scope, $http, $location) {
+angular.module('MainCtrl', []).controller('MainController', function($scope, $http, $location, People) {
 
   $scope.people = [{email : ''}];
   $scope.teams = [];
@@ -7,10 +7,14 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, $ht
     if (event.which === 13) {
       var person = $scope.people[index];
       if (validateEmail(person.email) && validateTeam($scope.teams)) {
-        person.teams = $scope.teams;
+        $scope.people[index].teams = getTeams();
         $scope.addPerson();
       }
     }
+  }
+
+  function getTeams() {
+    return _.pluck($scope.teams, 'text');
   }
 
   function validateTeam(team) {
@@ -31,13 +35,14 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, $ht
   }
 
   $scope.submitPeople = function() {
-    console.log($scope.people);
-    $http.post('/api/submitPeople', $scope.people).
-      success(function(response) {
-        $location.path('/preview')
-      }).
-      error(function(error) {
-        console.log(error);
+    People.create($scope.people)
+      .success(function(response) {
+        console.log(response);
+        $location.path('/pairs');
+      })
+
+      .error(function(response) {
+        console.log(response);
       });
   }
 });

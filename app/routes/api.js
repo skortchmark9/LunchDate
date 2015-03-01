@@ -1,3 +1,4 @@
+var _              = require('underscore');
 module.exports = function(app, Organization, Person) {
 
 	// server routes ===========================================================
@@ -8,13 +9,43 @@ module.exports = function(app, Organization, Person) {
 			if (err) {
 				res.send(err);
 			}
-			res.json(people);
 		});
 	});
 
+	function mergePeople(people) {
+		//If people get put in twice on different teams
+		var peopleDict = _.reduce(people, function(unique, person){
+			oldTeams = (person.email in unique) ? unique[person.email] : [];
+			unique[person.email] = _.union(oldTeams, person.teams);
+			return unique
+		}, {});
+
+		return _.map(peopleDict, function(value, key) {
+			return {email : key, teams : value};
+		});
+	}
+
 	app.post('/api/people', function(req, res) {
-		console.log(req.body);
-		res.send("YOU DID IT!");
+		var newPeople = mergePeople(req.body);
+
+		Organization.findOne({name : 'IFTTT'}, function(err, org) {
+			if (err) console.error(err);
+
+			//Init array with null for previous weeks.
+			var prevWeeks = _.map(new Array(org ? org.weeks : 0), function() {return null;});
+
+			var documents = _.map(newPeople, function(person) {
+				return new Person({
+					email : person.email,
+					teams : person.teams,
+					pairs : prevWeeks
+				});
+			});
+			Person.create(documents, function(err, people) {
+				if (err) res.send("Could not create people");
+				res.send("SUCCESS");
+			});
+		});
 	});
 
 	app.post('/api/todos', function(req, res) {

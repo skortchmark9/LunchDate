@@ -9,6 +9,7 @@ module.exports = function(app, Organization, Person) {
 			if (err) {
 				res.send(err);
 			}
+			res.json(people);
 		});
 	});
 
@@ -48,43 +49,61 @@ module.exports = function(app, Organization, Person) {
 		});
 	});
 
-	app.post('/api/todos', function(req, res) {
-		console.log('hit route');
-
-		// create a todo, information comes from AJAX request from Angular
-		Todo.create({
-			text : req.body.text,
-			done : false
-		}, function(err, todo) {
-			if (err)
+	app.get('/api/pairs', function(req, res) {
+		Person.find(function(err, people) {
+			if (err) {
 				res.send(err);
-
-				// get and return all the todos after you create another
-				Todo.find(function(err, todos) {
-					if (err)
-						res.send(err)
-					res.json(todos);
-				});
-			});
-
+			}
+			res.json(dumbPairs(people));
+		});
 	});
 
-	// delete a todo
-	app.delete('/api/todos/:todo_id', function(req, res) {
-		console.log('hit route');
-		Todo.remove({
-			_id : req.params.todo_id
-		}, function(err, todo) {
-			if (err)
-				res.send(err);
+	function teamsMatch(p1, p2) {
+		return _.intersection(p1.teams, p2.teams).length > 0;
+	}
 
-					// get and return all the todos after you create another
-					Todo.find(function(err, todos) {
-						if (err)
-							res.send(err)
-						res.json(todos);
-					});
-				});
-	});
+	function findTeammates(person, people) {
+		var teammates = _.filter(people, function(person2) {
+			return teamsMatch(person, person2);
+		})
+		console.log(teammates);
+		return teammates;
+	}
+
+	function dumbPairs(people) {
+		var pairs = [];
+		if (people.length % 2 === 1) {
+			pairs.push([people.pop(), null]);
+		}
+
+		while (people.length > 1) {
+			pairs.push([people.pop(), people.pop()]);
+		}
+
+		return pairs;
+	}
+
+	function makeTeamPair(people) {
+		var current = people.pop();
+		var teammates = findTeammates(current, people);
+		var teammate = null;
+		if (teammates.length > 0) {
+			teammate = teammates[0];
+		}
+
+		var pair = [];
+
+		if (teammate) {
+			var numPeople = people.length;
+			people = _.without(people, teammate);
+			if (numPeople == people.length) {
+				console.error("WITHOUT DOESN'T WORK");
+			}
+			pair = [current, teammate];
+		} else {
+			return false;
+		}
+	}
+
 
 };

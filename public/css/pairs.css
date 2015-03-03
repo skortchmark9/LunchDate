@@ -1,0 +1,13 @@
+.cards {
+  width: 500px;
+  border-spacing: 10px;
+  border-collapse: separate;
+}
+
+.card {
+  background: #fcfcfc;
+  box-shadow: 0 .2em 0 0 #d4d4d5;
+}
+
+tr {
+}

@@ -15,7 +15,7 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
 		.when('/pairs', {
 			templateUrl: 'views/pairs.html',
 			controller: 'PairsController',
-		})
+    })
 
 	$locationProvider.html5Mode(true);
 

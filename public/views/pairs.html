@@ -1,3 +1,11 @@
-<div class="jumbotron text-center">
-  SUP! PAIRS
-</div>
+<link rel="stylesheet" href="css/pairs.css">
+<table class="cards">
+<tr ng-repeat="pair in pairs">
+  <td class="card" ng-repeat="person in pair" ng-if="person">
+  <a tabindex="0" class="btn btn-large btn-success" role="button" data-toggle="popover" data-trigger="focus" title="Teams" data-content="{{person.pairs}}" data-placement='{{$index ? "right" : "left"}}' onclick="popover(this)">Previous Pairs</a>
+  <div class="email">
+    Email: {{person.email}}
+  </div>
+  </td>
+</tr>
+</table>

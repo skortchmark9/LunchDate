@@ -1,4 +1,4 @@
-angular.module('MainCtrl', []).controller('MainController', function($scope, $http, $location, People) {
+angular.module('MainCtrl', []).controller('MainController', function($scope, $location, People) {
 
   $scope.people = [{email : ''}];
   $scope.teams = [];
@@ -35,14 +35,16 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, $ht
   }
 
   $scope.submitPeople = function() {
-    People.create($scope.people)
-      .success(function(response) {
-        console.log(response);
-        $location.path('/pairs');
-      })
+    // People.create($scope.people)
+    //   .success(function(response) {
+    //     console.log(response);
+    //     $location.path('/pairs');
+    //   })
 
-      .error(function(response) {
-        console.log(response);
-      });
+    //   .error(function(response) {
+    //     console.log(response);
+    //   });
+        $location.path('/pairs');
+
   }
 });

@@ -1,3 +1,7 @@
+function toggleMenu() {
+  $('.menu').toggleClass('out');
+}
+
 angular.module('MainCtrl', []).controller('MainController', function($scope, $location, People) {
 
   $scope.people = [{email : ''}];

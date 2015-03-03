@@ -14,9 +14,14 @@
   <link rel="stylesheet" href="css/animations.css">
   <!-- JS -->
   <script src="libs/jquery/dist/jquery.min.js"></script>
+  <!-- Bootstrap -->
+  <script src="libs/bootstrap/js/transition.js"></script>
+  <script src="libs/bootstrap/js/collapse.js"></script>
   <script src="libs/bootstrap/js/tooltip.js"></script>
   <script src="libs/bootstrap/js/popover.js"></script>
+  <!-- Underscore -->
   <script src="libs/underscore/underscore-min.js"></script>
+  <!-- Angular -->
   <script src="libs/angular/angular.min.js"></script>
   <script src="libs/angular-route/angular-route.min.js"></script>
   <script src="libs/angular-animate/angular-animate.min.js"></script>
@@ -31,13 +36,28 @@
   <script src="js/appRoutes.js"></script>
   <script src="js/app.js"></script>
   <script src="js/appDirectives.js"></script>
+
+<div class="logo glass nav navbar-left flex">
+  <button class="btn btn-success nav-toggle" type="button" onclick="toggleMenu()">
+    sup!
+  </button>
+    <div class="menu out">
+    <button class="btn btn-default" type="button">
+      <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+    </button>
+    <button class="btn btn-default" type="button">
+      <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+    </button>
+    <button class="btn btn-default" type="button">
+      <span class="glyphicon glyphicon-forward" aria-hidden="true"></span>
+    </button>
+  </div>
+</div>
 </head>
-<body ng-app="lunchDate" ng-controller="MainController">
-<div class="table-container trigrid">
+<body ng-app="lunchDate" ng-controller="MainController" class="trigrid">
+
+<div class="table-container">
   <div class="wrapper">
-    <div class="logo">
-    asdlsjdalskdjaskldjslk
-    </div>
     <div class="centered view-animate" ng-view></div>
   </div>
 </div>

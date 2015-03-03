@@ -54,20 +54,73 @@ module.exports = function(app, Organization, Person) {
 			if (err) {
 				res.send(err);
 			}
-			res.json(dumbPairs(people));
+			res.json(makePairs(people));
 		});
 	});
 
-	function teamsMatch(p1, p2) {
-		return _.intersection(p1.teams, p2.teams).length > 0;
+	function makePairs(people) {
+		people = sortNeediest(people);
+		var pairs = [];
+		if (people.length % 2 === 1) {
+			pairs.push([_.first(people), null]);
+			people = _.rest(people);
+		}
+
+		var leftovers = [];
+
+		while (people.length > 0) {
+			var current = people.pop();
+			var teammates = findTeammates(current, people);
+
+			if (_.isEmpty(teammates)) {
+				leftovers.push(current);
+			} else {
+				pairs.push([current, findBestTeammate(current, teammates)]);
+			}
+		}
+
+		console.log(leftovers);
+		return pairs;
+
+
+
+	}
+
+	function weeksSinceLastDate(p1, p2, weeks) {
+		var totalWeeks = weeks || p1.pairs.length;
+		if (p2.pairs.length !== p1.pairs.length) {
+			console.error("THERE IS A PROBLEM!");
+		}
+		return totalWeeks - _.lastIndexOf(p1.pairs, p2.email);
 	}
 
 	function findTeammates(person, people) {
 		var teammates = _.filter(people, function(person2) {
 			return teamsMatch(person, person2);
-		})
-		console.log(teammates);
+		});
 		return teammates;
+	}
+
+	function findBestTeammate(person, teammates) {
+		if (_.isEmpty(teammates)) return null;
+
+		return _.max(teammates, function(tm) {
+			return weeksSinceLastDate(person, tm);
+		});
+	}
+
+	function teamsMatch(p1, p2) {
+		return _.intersection(p1.teams, p2.teams).length > 0;
+	}
+
+	function missedDates(person) {
+		return _.filter(person.pairs, function(pair) {
+			return !!pair;
+		}).length;
+	}
+
+	function sortNeediest(people) {
+		return _.sortBy(people, missedDates);
 	}
 
 	function dumbPairs(people) {
@@ -82,28 +135,5 @@ module.exports = function(app, Organization, Person) {
 
 		return pairs;
 	}
-
-	function makeTeamPair(people) {
-		var current = people.pop();
-		var teammates = findTeammates(current, people);
-		var teammate = null;
-		if (teammates.length > 0) {
-			teammate = teammates[0];
-		}
-
-		var pair = [];
-
-		if (teammate) {
-			var numPeople = people.length;
-			people = _.without(people, teammate);
-			if (numPeople == people.length) {
-				console.error("WITHOUT DOESN'T WORK");
-			}
-			pair = [current, teammate];
-		} else {
-			return false;
-		}
-	}
-
 
 };

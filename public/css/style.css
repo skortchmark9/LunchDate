@@ -39,6 +39,36 @@ html, body {
   overflow: hidden;
 }
 
+.logo {
+  z-index: 100;
+  margin-left: -1px;
+}
+
+
+.nav-toggle {
+  z-index: 1;
+  margin-right: 10px;
+}
+
+.menu {
+  transition: transform .8s cubic-bezier(0.55,0,.1,1);
+}
+
+.menu.out {
+  -webkit-transform: translate3d(-120%, 0, 0);
+  transform: translate3d(-120%, 0, 0);
+}
+
+.flex {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  align-items: center;
+}
+
+
+
 .input-container input {
   outline: none;
   margin: 0px;
@@ -81,110 +111,13 @@ input {
   display: block;
 }
 
-/*
- * # Semantic UI
- * https://github.com/Semantic-Org/Semantic-UI
- * http://www.semantic-ui.com/
- *
- * Copyright 2014 Contributors
- * Released under the MIT license
- * http://opensource.org/licenses/MIT
- *
- */
+* {
+  border-radius: 0px !important;
+}
 
-/*******************************
-            Button
-*******************************/
-
-.ui.button {
-  cursor: pointer;
-  display: inline-block;
-  min-height: 1em;
-  outline: none;
-  border: none;
-  vertical-align: baseline;
-  background-color: #f0f0f0;
-  color: #404040;
-  font-family: 'Brown', Arial, Helvetica, sans-serif;
-  margin: 0em 0.25em 0em 0em;
-  padding: 0.78571em 1.5em 0.78571em;
-  text-transform: none;
-  text-shadow: none;
-  font-weight: 300;
-  line-height: 1;
-  font-style: normal;
-  text-align: center;
-  text-decoration: none;
-  background-image: none;
-  border-radius: 0;
-  box-shadow: inset 1px 0 0 -1px #1b8eb9;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+.btn {
   -webkit-transition: opacity 0.1s cubic-bezier(0.55, 0, 0.1, 1), background-color 0.1s cubic-bezier(0.55, 0, 0.1, 1), color 0.1s cubic-bezier(0.55, 0, 0.1, 1), box-shadow 0.1s cubic-bezier(0.55, 0, 0.1, 1), background 0.1s cubic-bezier(0.55, 0, 0.1, 1);
   transition: opacity 0.1s cubic-bezier(0.55, 0, 0.1, 1), background-color 0.1s cubic-bezier(0.55, 0, 0.1, 1), color 0.1s cubic-bezier(0.55, 0, 0.1, 1), box-shadow 0.1s cubic-bezier(0.55, 0, 0.1, 1), background 0.1s cubic-bezier(0.55, 0, 0.1, 1);
-  will-change: '';
-  -webkit-tap-highlight-color: transparent;
+  padding: .5em;
 }
 
-/*******************************
-            States
-*******************************/
-
-/*--------------
-      Hover
----------------*/
-
-.ui.button:hover {
-  background-color: #e2e1df;
-  background-image: none;
-  box-shadow: inset 1px 0 0 -1px #1b8eb9;
-  color: rgba(0, 0, 0, 0.8);
-}
-
-.ui.button:hover .icon {
-  opacity: 0.85;
-}
-
-/*--------------
-      Focus
----------------*/
-
-.ui.button:focus .icon {
-  opacity: 0.85;
-}
-
-/*--------------
-      Down
----------------*/
-
-.ui.button:active,
-.ui.active.button:active {
-  background-color: #918f8c;
-  background-image: none;
-  color: rgba(0, 0, 0, 0.8);
-  box-shadow: inset 1px 0 0 -1px #1b8eb9;
-}
-
-/*--------------
-     Active
----------------*/
-
-.ui.active.button {
-  background-color: #918f8c;
-  background-image: none;
-  box-shadow: inset 1px -50px 0 -1px #1b8eb9;
-  color: rgba(0, 0, 0, 0.8);
-}
-
-.ui.button.active:hover {
-  background-color: #918f8c;
-  background-image: none;
-  color: rgba(0, 0, 0, 0.8);
-}
-
-.ui.button.active:active {
-  background-color: #918f8c;
-  background-image: none;
-}

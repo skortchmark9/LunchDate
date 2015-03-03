@@ -7,7 +7,37 @@
 .card {
   background: #fcfcfc;
   box-shadow: 0 .2em 0 0 #d4d4d5;
+  padding: 10px;
 }
 
-tr {
+.card-container {
+  padding: 2px;
+}
+
+.team {
+  font-weight: 600;
+  color: white;
+  padding: 5px;
+}
+
+.email {
+  font-size: 2em;
+  margin-top: -7px;
+  padding-left: 2px;
+  padding-right: 2px;
+}
+.flex-order-0 {
+  flex-direction: row;
+}
+
+.flex-order-0 > * {
+  margin-right: 5px;
+}
+
+.flex-order-1 {
+  flex-direction: row-reverse;
+}
+
+.flex-order-1 > * {
+  margin-left: 5px;
 }

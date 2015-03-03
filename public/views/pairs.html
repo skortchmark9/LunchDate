@@ -2,9 +2,16 @@
 <table class="cards">
 <tr ng-repeat="pair in pairs">
   <td class="card" ng-repeat="person in pair" ng-if="person">
-  <a tabindex="0" class="btn btn-large btn-success" role="button" data-toggle="popover" data-trigger="focus" title="Teams" data-content="{{person.pairs}}" data-placement='{{$index ? "right" : "left"}}' onclick="popover(this)">Previous Pairs</a>
-  <div class="email">
-    Email: {{person.email}}
+  <div class="card-container flex flex-order-{{$index}}">
+    <a tabindex="0" class="btn btn-success" role="button" data-toggle="popover" data-trigger="focus" title="Pairs" data-content="{{person.pairs}}" data-placement='{{$index ? "right" : "left"}}' onclick="popover(this)">Prior Pairs</a>
+    <div class="email">
+      <span class="label label-primary">{{person.email}}</span>
+    </div>
+  </div>
+  <div class="card-container flex flex-order-{{$index}}">
+    <span class="team team-{{team}}" ng-repeat="team in person.teams">
+    {{team}}
+    </span>
   </div>
   </td>
 </tr>

@@ -6,6 +6,7 @@
     "angular": "latest",
     "angular-route": "latest",
     "angular-animate": "latest",
-    "underscore": "~1.8.2"
+    "underscore": "~1.8.2",
+    "ng-tags-input": "~2.2.0"
   }
 }

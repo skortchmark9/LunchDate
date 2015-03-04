@@ -5,10 +5,10 @@
       stroke:#E28965; stroke-width:5;" />
 </svg>
   </div>
-  <tags-input ng-model='teams' class="team-input" placeholder="team"></tags-input>
+  <tags-input ng-model='teams' class="team-input" placeholder="team(s)"></tags-input>
   <div class="input-container">
       <div class="person-input" ng-repeat="person in people track by $index">
-          <input type="text" class="email-input form-control" ng-model='people[$index].email' ng-keypress="keyPressed($event, $index)" placeholder="email" setfocus="{{$last}}"/>
+          <input type="text" class="email-input form-control" ng-model='people[$index].email' ng-keypress="keyPressed($event, $index)" placeholder="add email and press enter" setfocus="{{$last}}"/>
     </div>
   </div>
   <input id="next"type="button" class="btn btn-success" value="Make Pairs" ng-click="submitPeople()">

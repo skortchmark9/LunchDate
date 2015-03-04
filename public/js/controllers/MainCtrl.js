@@ -37,7 +37,6 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, $lo
 
   $scope.submitPeople = function() {
     $scope.people.pop();
-    $scope.people = test;
     People.create($scope.people)
       .success(function(response) {
         console.log(response);

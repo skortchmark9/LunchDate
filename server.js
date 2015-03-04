@@ -30,6 +30,7 @@ app.use(express.static(__dirname + '/public')); // set the static files location
 var api = require('./app/routes/api')(app, Organization, Person);
 
 app.get('/', function(req, res) {
+  console.log(req.query.org);
 	res.sendfile('./public/index.html');
 });
 

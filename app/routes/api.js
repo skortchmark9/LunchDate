@@ -55,7 +55,7 @@ module.exports = function(app, Organization, Person) {
 
 		advanceWeek('IFTTT');
 
-		res.send("idk!");
+		res.send("success!");
 
 	});
 
@@ -109,7 +109,10 @@ module.exports = function(app, Organization, Person) {
 		while (people.length > 0) {
 			people = sortNeediest(people);
 			var toPair = people.pop();
-			console.log("PAIRING: ", toPair.email);
+
+			// console.log("PAIRING: ", toPair.email);
+
+
 			var teammates = findTeammates(toPair, people);
 			teammates = sortNeediest(teammates);
 
@@ -120,10 +123,10 @@ module.exports = function(app, Organization, Person) {
 			}
 
 			if (_.isEmpty(teammates)) {
-				console.log("EMPTY");
+				// console.log("EMPTY");
 				leftovers.push(toPair);
 			} else {
-				console.log("BEST TEAMMATE:", teammate);
+				// console.log("BEST TEAMMATE:", teammate);
 				pairs.push([toPair, teammate]);
 				people = _.without(people, teammate);
 			}
@@ -156,6 +159,7 @@ module.exports = function(app, Organization, Person) {
 	}
 
 	function sortNeediest(people) {
+		console.log("SORTING");
 		return _.sortBy(people, function(person) {
 			return chanceToBePicked(person, people);
 		});
@@ -170,7 +174,9 @@ module.exports = function(app, Organization, Person) {
 		});
 		lrft = weeksSinceLastDate(person, lrft);
 
-		return (lrft - teammates.length + missedDates(person));
+		var score = (lrft - teammates.length + missedDates(person));
+		console.log(person.email, score);
+		return 0 - score;
 	}
 
 	function weeksSinceLastDate(p1, p2, weeks) {
@@ -202,9 +208,10 @@ module.exports = function(app, Organization, Person) {
 
 	function dumbPairs(people) {
 		var pairs = [];
-		people = _.shuffle(people);
+		people = _.shuffle(people)
 		if (people.length % 2 === 1) {
-			pairs.push([people.pop(), null]);
+			pairs.push([people[0], null]);
+			people = _.without(people, people[0]);
 		}
 
 		while (people.length > 1) {

@@ -36,7 +36,8 @@ html, body {
   position: absolute;
   width: 100%;
   top: 0;
-  overflow: hidden;
+  overflow: scroll;
+  /* This needs to be hidden somehow */
 }
 
 .logo {

@@ -3,5 +3,5 @@ var mongoLocation = process.env.MONGOLAB_URI || process.env.MONGOHQ_URL
 
 
 module.exports = {
-	url : mongoLocation;
+	url : mongoLocation
 }

@@ -36,7 +36,7 @@ angular.module('PairsCtrl', []).controller('PairsController', function($scope, P
       setTimeout($scope.highlightTeams(), 10);
 
       $(function () {
-        $('[data-toggle="popover"]').popover();
+        $('[data-toggle="popover"]').popover({html : true});
       });
     })
     .error(function(response) {

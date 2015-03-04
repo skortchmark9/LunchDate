@@ -13,21 +13,11 @@ module.exports = function(app, Organization, Person) {
 		});
 	});
 
-	function mergePeople(people) {
-		//If people get put in twice on different teams
-		var peopleDict = _.reduce(people, function(unique, person){
-			oldTeams = (person.email in unique) ? unique[person.email] : [];
-			unique[person.email] = _.union(oldTeams, person.teams);
-			return unique
-		}, {});
-
-		return _.map(peopleDict, function(value, key) {
-			return {email : key, teams : value};
-		});
-	}
-
 	app.post('/api/people', function(req, res) {
 		var newPeople = mergePeople(req.body);
+		console.log('NEW');
+		console.log(newPeople);
+
 
 		Organization.findOne({name : 'IFTTT'}, function(err, org) {
 			if (err) console.error(err);
@@ -54,36 +44,132 @@ module.exports = function(app, Organization, Person) {
 			if (err) {
 				res.send(err);
 			}
-			res.json(makePairs(people));
+			res.json(makePairs(people, 5));
 		});
 	});
 
-	function makePairs(people) {
-		people = sortNeediest(people);
-		var pairs = [];
-		if (people.length % 2 === 1) {
-			pairs.push([_.first(people), null]);
-			people = _.rest(people);
+	app.post('/api/pairs/create', function(req, res) {
+		console.log('hit');
+		var documents = [];
+
+		_.each(req.body, function(pair) {
+			savePair(pair[0], pair[1]);
+		});
+
+		res.send("idk!");
+
+	});
+
+	function savePair(p1, p2) {
+		if (p1 && p2) {
+			updatePerson(p1._id, p2.email);
+			updatePerson(p2._id, p1.email);
+		} else if (p1) {
+			updatePerson(p1._id, null);
+		} else if (p2) {
+			updatePerson(p2._id, null);
 		}
+	}
 
+	function updatePerson(id, email, callback) {
+		Person.findOneAndUpdate(
+    {_id: id},
+    {$push: {pairs: email}},
+    {safe: true, upsert: true},
+    function(err, model) {
+    		if (err) console.log(err);
+        if (callback) callback();
+    });
+	}
+
+	function mergePeople(people) {
+		//If people get put in twice on different teams
+		var peopleDict = _.reduce(people, function(unique, person){
+			oldTeams = (person.email in unique) ? unique[person.email] : [];
+			unique[person.email] = _.union(oldTeams, person.teams);
+			return unique
+		}, {});
+
+		return _.map(peopleDict, function(value, key) {
+			return {email : key, teams : value};
+		});
+	}
+
+
+	function advanceWeek(orgName) {
+		Organization.findOneAndUpdate({name : 'IFTTT'}, {$inc: {weeks: 1}}, function(err, org) {
+			if (err) console.error(err);
+		});
+	}
+
+	function makePairs(people, passes) {
 		var leftovers = [];
-
+		var pairs = [];
 		while (people.length > 0) {
-			var current = people.pop();
-			var teammates = findTeammates(current, people);
+			people = sortNeediest(people);
+			var toPair = people.pop();
+			console.log("PAIRING: ", toPair.email);
+			var teammates = findTeammates(toPair, people);
+			teammates = sortNeediest(teammates);
+
+			var teammate = findBestTeammate(toPair, teammates);
+			while (!(_.isEmpty(teammates)) &&
+			       lastWeek(toPair, teammate)) {
+				teammate = teammates.pop();
+			}
 
 			if (_.isEmpty(teammates)) {
-				leftovers.push(current);
+				console.log("EMPTY");
+				leftovers.push(toPair);
 			} else {
-				pairs.push([current, findBestTeammate(current, teammates)]);
+				console.log("BEST TEAMMATE:", teammate);
+				pairs.push([toPair, teammate]);
+				people = _.without(people, teammate);
 			}
 		}
 
-		console.log(leftovers);
-		return pairs;
+		leftovers = sortNeediest(leftovers);
+
+		if (leftovers.length > 0) {
+			if (passes > 0) {
+				var rest = makePairs(leftovers, passes - 1);
+			} else {
+				var rest = dumbPairs(leftovers);
+			}
+		}
+
+		return _.union(pairs, rest);
+	}
 
 
+	function lastWeek(person1, person2) {
+		return _.last(person1.pairs) == person2.email;
+	}
 
+	function findBestTeammate(person, teammates) {
+		if (_.isEmpty(teammates)) return null;
+
+		return  _.max(teammates, function(tm) {
+			return weeksSinceLastDate(person, tm);
+		});
+	}
+
+	function sortNeediest(people) {
+		return _.sortBy(people, function(person) {
+			return chanceToBePicked(person, people);
+		});
+	}
+
+	function chanceToBePicked(person, people) {
+		var teammates = findTeammates(person, people);
+
+		//Last time w/currently free teammate
+		var lrft = _.max(teammates, function(p) {
+			return weeksSinceLastDate(person, p);
+		});
+		lrft = weeksSinceLastDate(person, lrft);
+
+		return (lrft - teammates.length + missedDates(person));
 	}
 
 	function weeksSinceLastDate(p1, p2, weeks) {
@@ -91,7 +177,8 @@ module.exports = function(app, Organization, Person) {
 		if (p2.pairs.length !== p1.pairs.length) {
 			console.error("THERE IS A PROBLEM!");
 		}
-		return totalWeeks - _.lastIndexOf(p1.pairs, p2.email);
+		var lastDate = _.lastIndexOf(p1.pairs, p2.email);
+		return totalWeeks - lastDate;
 	}
 
 	function findTeammates(person, people) {
@@ -99,14 +186,6 @@ module.exports = function(app, Organization, Person) {
 			return teamsMatch(person, person2);
 		});
 		return teammates;
-	}
-
-	function findBestTeammate(person, teammates) {
-		if (_.isEmpty(teammates)) return null;
-
-		return _.max(teammates, function(tm) {
-			return weeksSinceLastDate(person, tm);
-		});
 	}
 
 	function teamsMatch(p1, p2) {
@@ -119,12 +198,10 @@ module.exports = function(app, Organization, Person) {
 		}).length;
 	}
 
-	function sortNeediest(people) {
-		return _.sortBy(people, missedDates);
-	}
 
 	function dumbPairs(people) {
 		var pairs = [];
+		people = _.shuffle(people);
 		if (people.length % 2 === 1) {
 			pairs.push([people.pop(), null]);
 		}

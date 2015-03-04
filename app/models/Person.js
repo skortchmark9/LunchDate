@@ -5,5 +5,5 @@ var mongoose = require('mongoose');
 module.exports = mongoose.model('Person', {
 	email : {type : String, lowercase : true },
   teams  : [String],
-  pairs : [mongoose.Schema.Types.ObjectId]
+  pairs : [String]
 });

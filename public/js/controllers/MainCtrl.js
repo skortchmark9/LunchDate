@@ -1,5 +1,7 @@
-function toggleMenu() {
-  $('.menu').toggleClass('out');
+/* This is hackery because we don't know an Angular way to
+    deal with menus.*/
+function savePairs() {
+  angular.element($('#pairs')).scope().savePairs();
 }
 
 angular.module('MainCtrl', []).controller('MainController', function($scope, $location, People) {
@@ -39,16 +41,37 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, $lo
   }
 
   $scope.submitPeople = function() {
-    // People.create($scope.people)
-    //   .success(function(response) {
-    //     console.log(response);
-    //     $location.path('/pairs');
-    //   })
-
-    //   .error(function(response) {
-    //     console.log(response);
-    //   });
+    $location.path('/pairs');
+    return;
+    $scope.people.pop();
+    $scope.people = test;
+    People.create($scope.people)
+      .success(function(response) {
+        console.log(response);
         $location.path('/pairs');
+      })
 
+      .error(function(response) {
+        console.log(response);
+      });
   }
+
+var test = [{email: 'paul@mccartney.org', teams : ['The-Beatles']},
+{email: 'john@lennon.org', teams : ['The-Beatles']},
+{email: 'george@harrison.org', teams : ['The-Beatles']},
+{email: 'ringo@starr.org', teams : ['The-Beatles']},
+{email :'john@lennon.org', teams: ['The-Quarrymen'] },
+{email :'paul@mccartney.org', teams: ['The-Quarrymen'] },
+{email :'stu@sutcliffe.org', teams: ['The-Quarrymen'] },
+{email :'paul@mccartney.org', teams: ['Wings'] },
+{email :'linda@mccartney.org', teams: ['Wings'] },
+{email :'john@lennon.org', teams: ['Plastic-Ono-Band'] },
+{email :'yoko@ono.org', teams: ['Plastic-Ono-Band'] },
+{email :'george@harrison.org', teams: ['Traveling-Wilburys'] },
+{email :'tom@petty.org', teams: ['Traveling-Wilburys'] },
+{email :'roy@orbison.org', teams: ['Traveling-Wilburys'] }]
+
+
+
+
 });

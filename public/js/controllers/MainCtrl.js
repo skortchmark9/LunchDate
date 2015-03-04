@@ -1,13 +1,11 @@
-/* This is hackery because we don't know an Angular way to
-    deal with menus.*/
-function savePairs() {
-  angular.element($('#pairs')).scope().savePairs();
-}
+
 
 angular.module('MainCtrl', []).controller('MainController', function($scope, $location, People) {
 
   $scope.people = [{email : ''}];
   $scope.teams = [];
+
+  $scope.home = true;
 
   $scope.keyPressed = function(event, index) {
     if (event.which === 13) {
@@ -42,6 +40,7 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, $lo
 
   $scope.submitPeople = function() {
     $location.path('/pairs');
+    $scope.home = false;
     return;
     $scope.people.pop();
     $scope.people = test;

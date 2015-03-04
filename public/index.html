@@ -37,19 +37,19 @@
   <script src="js/app.js"></script>
   <script src="js/appDirectives.js"></script>
 
-<div class="logo nav navbar-left flex">
+<div class="logo nav navbar-left flex" ng-hide="home">
   <button class="btn btn-success nav-toggle" type="button" ng-click="showMenu = !showMenu">
-    sup!
+    LOGO!
   </button>
 
     <div class="menu" ng-init="showMenu=false" ng-model="showMenu" ng-class="showMenu ? '' : 'out'">
     <button class="btn btn-default" type="button"  onclick="savePairs()">
       <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
     </button>
-    <button class="btn btn-default" type="button">
+    <button onclick="refreshPairs()" class="btn btn-default" type="button">
       <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
     </button>
-    <button class="btn btn-default" type="button">
+    <button class="btn btn-default" type="button" onclick="nextWeek()">
       <span class="glyphicon glyphicon-forward" aria-hidden="true"></span>
     </button>
   </div>

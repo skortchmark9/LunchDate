@@ -1,3 +1,25 @@
+/* This is hackery because we don't know an Angular way to
+    deal with menus.*/
+function savePairs() {
+  check = confirm("Do you want to email the participants (just kidding)");
+  if(!check)
+    return;
+}
+
+function refreshPairs() {
+  check = confirm("Do you want to reshuffle the pairs for this week?");
+  if(!check) return;
+
+  angular.element($('#pairs')).scope().savePairs();
+}
+
+function nextWeek() {
+  check = confirm("Do you want to confirm these pairs and see next week's? (You can't go back!)");
+  if (!check) return;
+
+  angular.element($('#pairs')).scope().nextWeek();
+}
+
 function popover(elt) {
   $(elt).popover('show');
 }
@@ -5,17 +27,6 @@ function popover(elt) {
 angular.module('PairsCtrl', []).controller('PairsController', function($scope, Pairs) {
 
   $scope.pairs;
-  /*[
-  [{email : 'nobody@how.sue', teams: ['jkljs'], pairs: ['ss', 's']}, null],
-  [{email: 'dude_1@gmail.com', teams: ['team1', 'team2', 'team3'], pairs : ['A', 'B', 'C', 'D']},
-   {email: 'dude_2@gmail.com', teams: ['team3'], pairs : ['A', '', 'C', 'D']}],
-  [{email: 'dude_3@gmail.com', teams: ['team3'], pairs : ['A', '', 'C', 'D']},
-   {email: 'dude_4@gmail.com', teams: ['team2', 'team3'], pairs : ['A', 'B', 'C', 'D']}],
-  [{email: 'dude_5@gmail.com', teams: ['team1', 'team3'], pairs : ['A', 'B', 'C', 'D']},
-   {email: 'dude_6@gmail.com', teams: ['team2'], pairs : ['', 'B', 'C', 'D']}],
-  [{email: 'dude_7@gmail.com', teams: ['team2'], pairs : ['B', 'C', '']},
-   {email: 'dude_8@gmail.com', teams: ['team2'], pairs : ['A', 'B', 'C', 'D']}]];*/
-
 
   $scope.savePairs = function() {
     Pairs.create($scope.pairs)
@@ -25,6 +36,10 @@ angular.module('PairsCtrl', []).controller('PairsController', function($scope, P
     .error(function (resp) {
       console.error(resp);
     });
+  }
+
+  $scope.nextWeek = function() {
+
   }
 
 
@@ -42,6 +57,7 @@ angular.module('PairsCtrl', []).controller('PairsController', function($scope, P
     .error(function(response) {
       console.error(response);
     });
+    $scope.$parent.home = false;
     $scope.$parent.showMenu = true;
     setTimeout($scope.highlightTeams, 100);
   }

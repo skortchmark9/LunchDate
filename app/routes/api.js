@@ -15,8 +15,6 @@ module.exports = function(app, Organization, Person) {
 
 	app.post('/api/people', function(req, res) {
 		var newPeople = mergePeople(req.body);
-		console.log('NEW');
-		console.log(newPeople);
 
 
 		Organization.findOne({name : 'IFTTT'}, function(err, org) {
@@ -49,12 +47,13 @@ module.exports = function(app, Organization, Person) {
 	});
 
 	app.post('/api/pairs/create', function(req, res) {
-		console.log('hit');
 		var documents = [];
 
 		_.each(req.body, function(pair) {
 			savePair(pair[0], pair[1]);
 		});
+
+		advanceWeek('IFTTT');
 
 		res.send("idk!");
 
@@ -96,9 +95,11 @@ module.exports = function(app, Organization, Person) {
 	}
 
 
-	function advanceWeek(orgName) {
-		Organization.findOneAndUpdate({name : 'IFTTT'}, {$inc: {weeks: 1}}, function(err, org) {
+	function advanceWeek(orgName, callback) {
+		Organization.findOneAndUpdate({name : orgName}, {$inc: {weeks: 1}}, function(err, org) {
 			if (err) console.error(err);
+
+			if (callback) callback();
 		});
 	}
 

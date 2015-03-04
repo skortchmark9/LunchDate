@@ -32,21 +32,16 @@ angular.module('MainCtrl', []).controller('MainController', function($scope, $lo
   }
 
   $scope.addPerson = function(caller) {
-    $('.person-input').last().animate({
-      marginTop: '-22px',
-    });
     $scope.people.push({email : ''});
   }
 
   $scope.submitPeople = function() {
-    $location.path('/pairs');
-    $scope.home = false;
-    return;
     $scope.people.pop();
     $scope.people = test;
     People.create($scope.people)
       .success(function(response) {
         console.log(response);
+        $scope.home = false;
         $location.path('/pairs');
       })
 
@@ -69,8 +64,5 @@ var test = [{email: 'paul@mccartney.org', teams : ['The-Beatles']},
 {email :'george@harrison.org', teams: ['Traveling-Wilburys'] },
 {email :'tom@petty.org', teams: ['Traveling-Wilburys'] },
 {email :'roy@orbison.org', teams: ['Traveling-Wilburys'] }]
-
-
-
 
 });

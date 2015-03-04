@@ -69,23 +69,14 @@ html, body {
 
 
 
-.input-container input {
-  outline: none;
-  margin: 0px;
-  border: none;
-  color: white;
-  background-color: black;
-  -webkit-appearance: none;
-  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
-  border-radius: 0em;
-  box-shadow: none;
-  width: 100%
+.center-hamburger > * {
+  margin-bottom: 2px;
 }
 
 .input-container {
   overflow-y: hidden;
   z-index: -1;
-  height: 100px;
+  height: 102px;
 }
 
 .team-input .host {
@@ -93,22 +84,16 @@ html, body {
 }
 
 .square {
-  height: 20px;
   width: 200px;
   z-index: 99999;
 }
 
-.red {
-  opacity: 0%;
-  background-color: red;
-}
-
-.green {
-  background-color: green;
-}
-
 input {
   display: block;
+}
+
+#next {
+  width: 100%;
 }
 
 * {

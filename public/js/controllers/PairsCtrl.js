@@ -1,16 +1,10 @@
 /* This is hackery because we don't know an Angular way to
     deal with menus.*/
-function savePairs() {
-  check = confirm("Do you want to email the participants (just kidding)");
-  if(!check)
-    return;
-}
-
 function refreshPairs() {
-  check = confirm("Do you want to reshuffle the pairs for this week?");
+  check = confirm("Do you want to reshuffle the pairs for this week? (They might look exactly the same)");
   if(!check) return;
 
-  angular.element($('#pairs')).scope().savePairs();
+  angular.element($('#pairs')).scope().getPairs();
 }
 
 function nextWeek() {
@@ -28,38 +22,36 @@ angular.module('PairsCtrl', []).controller('PairsController', function($scope, P
 
   $scope.pairs;
 
-  $scope.savePairs = function() {
+  $scope.nextWeek = function() {
     Pairs.create($scope.pairs)
     .success(function(resp) {
-      console.log(resp);
+      $scope.getPairs();
     })
     .error(function (resp) {
       console.error(resp);
     });
   }
 
-  $scope.nextWeek = function() {
-
-  }
-
-
-
-  $scope.init = function() {
+  $scope.getPairs = function() {
     Pairs.get()
     .success(function(pairs) {
       $scope.pairs = pairs;
-      setTimeout($scope.highlightTeams(), 10);
 
       $(function () {
         $('[data-toggle="popover"]').popover({html : true});
       });
+      setTimeout($scope.highlightTeams, 50);
     })
     .error(function(response) {
       console.error(response);
     });
+  }
+
+
+  $scope.init = function() {
+    $scope.getPairs();
     $scope.$parent.home = false;
     $scope.$parent.showMenu = true;
-    setTimeout($scope.highlightTeams, 100);
   }
 
   /* I decided against doing multiple highlights but we could if we wanted.*/
@@ -77,7 +69,6 @@ angular.module('PairsCtrl', []).controller('PairsController', function($scope, P
       });
     })
   }
-
 
 
   $scope.init();

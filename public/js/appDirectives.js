@@ -16,11 +16,12 @@ angular.module('lunchDate').directive('setfocus', function() {
 
 angular.module('lunchDate').filter('teamSeparator', function() {
   return function(input) {
-      var html = '';
+      var html = '<div class="prior-pairs-container">';
       for (idx in input) {
           var inc = parseInt(idx) + 1;
-          html += '<div class="prior-pairs">' + inc + ' week ago: ' + (input[idx] ? input[idx] : 'None :(')  + '</div>';
+          html += '<div class="prior-pair">' + inc + ' weeks ago: ' + (input[idx] ? input[idx] : 'None :(')  + '</div>';
       }
+      html += '</div>';
       return html;
   };
 });
